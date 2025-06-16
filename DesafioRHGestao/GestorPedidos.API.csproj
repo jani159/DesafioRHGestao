@@ -17,4 +17,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PedidoCompra.Infrastructure\GestorPedidos.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
