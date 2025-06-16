@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioRHGestaoAPI", "DesafioRHGestao\DesafioRHGestaoAPI.csproj", "{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.API", "DesafioRHGestao\GestorPedidos.API.csproj", "{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Application", "PedidoCompra.Application\GestorPedidos.Application.csproj", "{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Domain", "PedidoCompra.Domain\GestorPedidos.Domain.csproj", "{D735BC5E-8B77-4C66-A293-A4CD44F0D975}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Infrastructure", "PedidoCompra.Infrastructure\GestorPedidos.Infrastructure.csproj", "{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Tests", "PedidoCompra.Tests\GestorPedidos.Tests.csproj", "{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D735BC5E-8B77-4C66-A293-A4CD44F0D975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D735BC5E-8B77-4C66-A293-A4CD44F0D975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D735BC5E-8B77-4C66-A293-A4CD44F0D975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D735BC5E-8B77-4C66-A293-A4CD44F0D975}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
