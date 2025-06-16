@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PedidoCompra.Infrastructure\GestorPedidos.Infrastructure.csproj" />
+    <ProjectReference Include="..\PedidoCompra.Infrastructure\PedidoCompra.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

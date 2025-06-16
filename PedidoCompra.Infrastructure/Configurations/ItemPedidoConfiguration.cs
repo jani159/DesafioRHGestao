@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using GestorPedidos.Domain.Entities;
+using PedidoCompra.Domain.Entities;
 
-namespace GestorPedidos.Infrastructure.Configurations
+namespace PedidoCompra.Infrastructure.Configurations
 {
     public class ItemPedidoConfiguration : IEntityTypeConfiguration<ItemPedido>
     {

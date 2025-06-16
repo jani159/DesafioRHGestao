@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorPedidos.Domain.Entities;
-using GestorPedidos.Domain.Interfaces;
-using GestorPedidos.Infrastructure.Data;
+using PedidoCompra.Domain.Entities;
+using PedidoCompra.Domain.Interfaces;
+using PedidoCompra.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestorPedidos.Infrastructure.Repositories
+namespace PedidoCompra.Infrastructure.Repositories
 {
     public class PedidoRepository : RepositoryBase<Pedido>, IPedidoRepository
     {
-        public PedidoRepository(GestorPedidoContext context) : base(context)
+        public PedidoRepository(PedidoCompraContext context) : base(context)
         {
         }
 

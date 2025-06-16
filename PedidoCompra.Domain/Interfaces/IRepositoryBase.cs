@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestorPedidos.Domain.Interfaces
+namespace PedidoCompra.Domain.Interfaces
 {
     public interface IRepositoryBase<T> where T : class
     {

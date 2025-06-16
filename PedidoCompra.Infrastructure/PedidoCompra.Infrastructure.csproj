@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PedidoCompra.Domain\GestorPedidos.Domain.csproj" />
+    <ProjectReference Include="..\PedidoCompra.Domain\PedidoCompra.Domain.csproj" />
   </ItemGroup>
 
 </Project>

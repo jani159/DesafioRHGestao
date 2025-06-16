@@ -1,11 +1,11 @@
-using GestorPedidos.Domain.Interfaces;
-using GestorPedidos.Infrastructure.Data;
-using GestorPedidos.Infrastructure.Repositories;
+using PedidoCompra.Domain.Interfaces;
+using PedidoCompra.Infrastructure.Data;
+using PedidoCompra.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
-builder.Services.AddDbContext<GestorPedidoContext>(options =>
+builder.Services.AddDbContext<PedidoCompraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Registra os repositórios

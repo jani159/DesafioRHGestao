@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.API", "DesafioRHGestao\GestorPedidos.API.csproj", "{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PedidoCompra.API", "DesafioRHGestao\PedidoCompra.API.csproj", "{312BD611-41FE-4F1B-888A-6E5BF1BA9FD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Application", "PedidoCompra.Application\GestorPedidos.Application.csproj", "{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PedidoCompra.Application", "PedidoCompra.Application\PedidoCompra.Application.csproj", "{CF94006F-7107-4EEA-B0B9-C7D7F197FB2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Domain", "PedidoCompra.Domain\GestorPedidos.Domain.csproj", "{D735BC5E-8B77-4C66-A293-A4CD44F0D975}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PedidoCompra.Domain", "PedidoCompra.Domain\PedidoCompra.Domain.csproj", "{D735BC5E-8B77-4C66-A293-A4CD44F0D975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Infrastructure", "PedidoCompra.Infrastructure\GestorPedidos.Infrastructure.csproj", "{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PedidoCompra.Infrastructure", "PedidoCompra.Infrastructure\PedidoCompra.Infrastructure.csproj", "{9F8F99D2-8AC3-407A-B8DF-835FE6D42448}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GestorPedidos.Tests", "PedidoCompra.Tests\GestorPedidos.Tests.csproj", "{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PedidoCompra.Tests", "PedidoCompra.Tests\PedidoCompra.Tests.csproj", "{0DCB8BF5-9341-4AE3-B0B9-A05159BDEFE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{9D23B2FC-22D5-48EF-868B-BD594AC41297}"
 	ProjectSection(SolutionItems) = preProject

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorPedidos.Domain.Entities;
+using PedidoCompra.Domain.Entities;
 
-namespace GestorPedidos.Domain.Interfaces
+namespace PedidoCompra.Domain.Interfaces
 {
     public interface IPedidoRepository : IRepositoryBase<Pedido>
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorPedidos.Application.Utils;
+using PedidoCompra.Application.Utils;
 
-namespace GestorPedidos.Domain.Entities
+namespace PedidoCompra.Domain.Entities
 {
     public class Pedido
     {

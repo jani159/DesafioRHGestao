@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorPedidos.Domain.Entities;
+using PedidoCompra.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestorPedidos.Infrastructure.Data
+namespace PedidoCompra.Infrastructure.Data
 {
-    public class GestorPedidoContext : DbContext
+    public class PedidoCompraContext : DbContext
     {
-        public GestorPedidoContext(DbContextOptions<GestorPedidoContext> options)
+        public PedidoCompraContext(DbContextOptions<PedidoCompraContext> options)
             : base(options)
         {
         }
@@ -22,7 +22,7 @@ namespace GestorPedidos.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(GestorPedidoContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidoCompraContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
 

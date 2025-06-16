@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorPedidos.Domain.Entities;
+using PedidoCompra.Domain.Entities;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestorPedidos.Infrastructure.Configurations
+namespace PedidoCompra.Infrastructure.Configurations
 {
     public class PedidoConfiguration : IEntityTypeConfiguration<Pedido>
     {

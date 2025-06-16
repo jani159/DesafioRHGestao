@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PedidoCompra.Application\GestorPedidos.Application.csproj" />
+    <ProjectReference Include="..\PedidoCompra.Application\PedidoCompra.Application.csproj" />
   </ItemGroup>
 
 </Project>

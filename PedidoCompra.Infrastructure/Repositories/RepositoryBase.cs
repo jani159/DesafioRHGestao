@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GestorPedidos.Domain.Interfaces;
-using GestorPedidos.Infrastructure.Data;
+using PedidoCompra.Domain.Interfaces;
+using PedidoCompra.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace GestorPedidos.Infrastructure.Repositories
+namespace PedidoCompra.Infrastructure.Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected readonly GestorPedidoContext _context;
+        protected readonly PedidoCompraContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public RepositoryBase(GestorPedidoContext context)
+        public RepositoryBase(PedidoCompraContext context)
         {
             _context = context;
             _dbSet = context.Set<T>();
