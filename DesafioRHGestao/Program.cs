@@ -10,7 +10,8 @@ builder.Services.AddDbContext<GestorPedidoContext>(options =>
 
 // Registra os repositórios
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
 var app = builder.Build();
 
