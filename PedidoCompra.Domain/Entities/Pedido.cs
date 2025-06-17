@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PedidoCompra.Application.Utils;
 
 namespace PedidoCompra.Domain.Entities
 {
@@ -30,27 +29,6 @@ namespace PedidoCompra.Domain.Entities
             ValorTotal = valorTotal;
             Status = status;
             ClienteId = clienteId;
-        }
-
-        public void AdicionarItem(Produto produto, int quantidade)
-        {
-            if (Validacoes.EhNullOuVazio(produto))
-            {
-                throw new ArgumentNullException(nameof(produto));
-            }
-
-            if (quantidade <= 0)
-            {
-                throw new ArgumentException("A quantidade precisa ser maior que zero.");
-            }
-
-            var item = new ItemPedido(produto, quantidade);
-            Itens.Add(item);
-        }
-
-        public bool ValidarPedido()
-        {
-            return Itens.Any(); // Pedido deve ter pelo menos um item
         }
     }
 }
