@@ -15,14 +15,14 @@ namespace PedidoCompra.API.Controllers
             _clienteService = clienteService;
         }
 
-        [HttpGet]
+        [HttpGet("listarTodos")]
         public async Task<IActionResult> ListarTodosClientes()
         {
             var clientes = await _clienteService.ListarTodosClientesAsync();
             return Ok(clientes);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("cliente/{id}")]
         public async Task<IActionResult> ObterClientePorId(int id)
         {
             var cliente = await _clienteService.ObterClientePorIdAsync(id);
@@ -35,7 +35,7 @@ namespace PedidoCompra.API.Controllers
             return Ok(cliente);
         }
 
-        [HttpPost]
+        [HttpPost("incluir")]
         public async Task<IActionResult> IncluirCliente([FromBody] ClienteDTO clienteDTO)
         {
             if (clienteDTO == null)
@@ -46,7 +46,7 @@ namespace PedidoCompra.API.Controllers
             return CreatedAtAction(nameof(ObterClientePorId), new { id = clienteNew.Id }, clienteNew);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> AtualizarCliente(int id, [FromBody] ClienteDTO clienteDTO)
         {
             if (clienteDTO == null || clienteDTO.Id != id)
@@ -62,7 +62,7 @@ namespace PedidoCompra.API.Controllers
             return Ok(clienteAtualizado);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("remover/{id}")]
         public async Task<IActionResult> RemoverCliente(int id)
         {
             var clienteRemovido = await _clienteService.RemoverClienteAsync(id);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace PedidoCompra.Application.DTOs
 {
@@ -14,8 +15,10 @@ namespace PedidoCompra.Application.DTOs
         public string Telefone { get; set; }
         public string Endereco { get; set; }
 
+        [JsonIgnore]
         public ICollection<ItemPedidoDTO> ItensPedido { get; set; } = new List<ItemPedidoDTO>();
 
+        [JsonIgnore]
         public ICollection<PedidoDTO> Pedidos { get; set; } = new List<PedidoDTO>();
 
         public ClienteDTO() { }
