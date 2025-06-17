@@ -14,9 +14,6 @@ namespace PedidoCompra.Domain.Entities
         public string Telefone { get; set; }
         public string Endereco { get; set; }
 
-        // Relacionamento com Itens do Pedido
-        public ICollection<ItemPedido> ItensPedido { get; set; } = new List<ItemPedido>();
-
         // Relacionamento com Pedidos
         public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
 

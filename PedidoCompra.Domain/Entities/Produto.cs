@@ -14,12 +14,6 @@ namespace PedidoCompra.Domain.Entities
         public decimal Valor { get; set; }
         public int QuantidadeEstoque { get; set; }
 
-        // Relacionamento com Itens do PedidoAdd commentMore actions
-        public ICollection<ItemPedido> ItensPedido { get; set; } = new List<ItemPedido>();
-
-        // Relacionamento com Pedidos
-        public ICollection<Pedido> Pedidos { get; set; } = new List<Pedido>();
-
         // Construtor
         public Produto() { }
         public Produto(int id, string nome, string descricao, decimal valor, int quantidadeEstoque)

@@ -2,7 +2,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: PedidoCompra.API/Dockerfile
+      dockerfile: DesafioRHGestao/Dockerfile
     container_name: gestorpedidos-api
     ports:
       - "8080:8080"
