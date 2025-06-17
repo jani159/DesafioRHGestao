@@ -9,6 +9,7 @@ using PedidoCompra.Application.Interfaces;
 using PedidoCompra.Application.Services;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
@@ -39,7 +40,13 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "PedidoCompra API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "Gestor Pedidos API", 
+        Version = "v1",
+        Description = "API para gestao de pedidos de compra, clientes e produtos."
+    });
+
 });
 
 var app = builder.Build();
@@ -48,7 +55,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PedidoCompra API v1"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gestor Pedidos API v1"));
+}
+
+// Aplicar as migrations automaticamente ao iniciar a aplicação
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<PedidoCompraContext>();
+    dbContext.Database.Migrate(); // Aplica as migrations pendentes
 }
 
 app.Run();
