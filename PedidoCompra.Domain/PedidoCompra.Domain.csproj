@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\PedidoCompra.Application\PedidoCompra.Application.csproj" />
+    <Compile Remove="Enums\**" />
+    <EmbeddedResource Remove="Enums\**" />
+    <None Remove="Enums\**" />
   </ItemGroup>
 
 </Project>
