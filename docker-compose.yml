@@ -1,4 +1,22 @@
 services:
+  postgres:
+    image: postgres:17
+    container_name: ordercontrol-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: a1b2c3d4e5
+      POSTGRES_DB: ordercontroldb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "ordercontroldb"]
+      interval: 10s
+      retries: 5
+      start_period: 50s
+      timeout: 5s
+
   api:
     build:
       context: .
@@ -7,22 +25,12 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy  # Garante que o container api espere até o postgres estar saudável
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=ordercontroldb;Username=postgres;Password=123456
-
-  postgres:
-    image: postgres:15
-    container_name: ordercontrol-db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: ordercontroldb
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=ordercontroldb;Username=postgres;Password=a1b2c3d4e5
+    command: ["dotnet", "PedidoCompra.API.dll"]  # Altere para o comando correto
 
 volumes:
   pgdata:
