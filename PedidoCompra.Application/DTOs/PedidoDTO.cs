@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PedidoCompra.Domain.Entities;
 
 namespace PedidoCompra.Application.DTOs
 {
@@ -14,6 +15,7 @@ namespace PedidoCompra.Application.DTOs
         public DateTime DataPedido { get; set; }
         public List<ItemPedidoDTO> Itens { get; set; } = new List<ItemPedidoDTO>();
         public decimal ValorTotal => Itens.Sum(item => item.ValorTotal);
+        public Cliente Cliente { get; set; }
 
         public PedidoDTO()
         {

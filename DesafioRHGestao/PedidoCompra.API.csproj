@@ -14,10 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\PedidoCompra.Application\PedidoCompra.Application.csproj" />
     <ProjectReference Include="..\PedidoCompra.Infrastructure\PedidoCompra.Infrastructure.csproj" />
   </ItemGroup>
 

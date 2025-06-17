@@ -15,10 +15,8 @@ namespace PedidoCompra.Domain.Entities
 
         // Relacionamento com Cliente
         public int ClienteId { get; set; }
-        public Cliente Cliente { get; set; }
+        public string NomeCliente { get; set; }
 
-        // Relacionamento com Itens do Pedido
-        public ICollection<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
         // Construtor
         public Pedido() { }
 

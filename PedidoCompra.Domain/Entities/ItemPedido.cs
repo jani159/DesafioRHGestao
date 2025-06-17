@@ -10,9 +10,8 @@ namespace PedidoCompra.Domain.Entities
     {
         public int Id { get; set; }
         public int PedidoId { get; set; }
-        public Pedido Pedido { get; set; }
         public int ProdutoId { get; set; }
-        public Produto Produto { get; set; }
+        public string NomeProduto { get; set; }
         public int Quantidade { get; set; }
         public decimal ValorUnitario { get; set; }
 
@@ -28,7 +27,6 @@ namespace PedidoCompra.Domain.Entities
         }
         public ItemPedido(Produto produto, int quantidade)
         {
-            Produto = produto;
             ProdutoId = produto.Id;
             Quantidade = quantidade;
             ValorUnitario = produto.Valor; // Assume que o valor unitário é o preço do produto
