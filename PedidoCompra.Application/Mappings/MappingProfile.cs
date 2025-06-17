@@ -16,6 +16,8 @@ namespace PedidoCompra.Application.Mappings
             //Cliente
             CreateMap<Cliente, ClienteDTO>().ReverseMap();
 
+            CreateMap<Cliente, ClienteRequestDTO>().ReverseMap();
+
             //Produto
             CreateMap<Produto, ProdutoDTO>().ReverseMap();
 
@@ -25,7 +27,7 @@ namespace PedidoCompra.Application.Mappings
                 .ForMember(dest => dest.ValorUnitario, opt => opt.MapFrom(src => src.Produto.Valor));
 
             CreateMap<Pedido, PedidoDTO>().ReverseMap()
-                .ForMember(dest => dest.Cliente.Nome, opt => opt.MapFrom(src => src.Cliente.Nome));
+                .ForPath(dest => dest.Cliente.Nome, opt => opt.MapFrom(src => src.Cliente.Nome));
         }
     }
 }

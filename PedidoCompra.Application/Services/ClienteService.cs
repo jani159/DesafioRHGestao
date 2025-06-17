@@ -8,6 +8,7 @@ using PedidoCompra.Application.DTOs;
 using PedidoCompra.Application.Interfaces;
 using PedidoCompra.Application.Utils;
 using PedidoCompra.Domain.Interfaces;
+using PedidoCompra.Domain.Entities;
 
 namespace PedidoCompra.Application.Services
 {
@@ -21,25 +22,18 @@ namespace PedidoCompra.Application.Services
             _clienteRepository = clienteRepository ?? throw new ArgumentNullException(nameof(clienteRepository));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        public async Task<ClienteDTO> AtualizarClienteAsync(ClienteDTO clienteDTO)
+        public async Task<ClienteDTO> AtualizarClienteAsync(int id, ClienteRequestDTO clienteDTO)
         {
-            var clienteOld = await _clienteRepository.ObterClientePorIdAsync(clienteDTO.Id);
+            var clienteOld = await _clienteRepository.ObterClientePorIdAsync(id);
+
             if (Validacoes.EhNullOuVazio(clienteOld))
             {
                 throw new ArgumentException("Cliente não encontrado.");
             }
 
-            var clienteNew = _mapper.Map<ClienteDTO, Domain.Entities.Cliente>(clienteDTO);
+            var clienteNew = _mapper.Map<ClienteRequestDTO, Cliente>(clienteDTO);
 
-            if (clienteNew.Id != clienteOld.Id)
-            {
-                throw new ArgumentException("O ID do cliente não pode ser alterado.");
-            }
-
-            if (clienteNew.Id <= 0)
-            {
-                throw new ArgumentException("O ID do cliente deve ser maior que zero.");
-            }
+            clienteNew.Id = id;
             Validacoes.ValidarEhNullOuVazio(clienteNew.Nome, nameof(clienteNew.Nome));
             Validacoes.ValidarEhNullOuVazio(clienteNew.Email, nameof(clienteNew.Email));
             Validacoes.ValidarEhNullOuVazio(clienteNew.Telefone, nameof(clienteNew.Telefone));
@@ -52,16 +46,25 @@ namespace PedidoCompra.Application.Services
                 throw new ArgumentException("Erro ao atualizar cliente.");
             }
 
-            var clienteDTOAtualizado = _mapper.Map<Domain.Entities.Cliente, ClienteDTO>(clienteAtualizado);
+            var clienteDTOAtualizado = _mapper.Map<Cliente, ClienteDTO>(clienteAtualizado);
             return clienteDTOAtualizado;
         }
 
-        public async Task<ClienteDTO> IncluirClienteAsync(ClienteDTO clienteDTO)
+        public async Task<ClienteDTO> IncluirClienteAsync(ClienteRequestDTO clienteDTO)
         {
-           var clienteNew = _mapper.Map<ClienteDTO, Domain.Entities.Cliente>(clienteDTO);
-            if (!Validacoes.EhNullOuVazio(clienteNew.Id))
+            // Verifica se o clienteDTO não é null
+            if (clienteDTO == null)
             {
-                throw new ArgumentException("O ID do cliente não deve ser informado para inclusão.");
+                throw new ArgumentNullException(nameof(clienteDTO), "O DTO do cliente não pode ser nulo.");
+            }
+
+            // Mapeia o DTO para a entidade Cliente
+            var clienteNew = _mapper.Map<ClienteRequestDTO, Cliente>(clienteDTO);
+
+            // Verifica se o clienteNew não é null após o mapeamento
+            if (clienteNew == null)
+            {
+                throw new ArgumentException("Falha ao mapear o Cliente.");
             }
 
             Validacoes.ValidarEhNullOuVazio(clienteNew.Nome, nameof(clienteNew.Nome));
@@ -69,13 +72,15 @@ namespace PedidoCompra.Application.Services
             Validacoes.ValidarEhNullOuVazio(clienteNew.Telefone, nameof(clienteNew.Telefone));
             Validacoes.ValidarEhNullOuVazio(clienteNew.Endereco, nameof(clienteNew.Endereco));
 
+            Console.WriteLine(clienteNew);
+
             var clienteIncluido = await _clienteRepository.IncluirClienteAsync(clienteNew);
-            if (Validacoes.EhNullOuVazio(clienteIncluido))
+            if (Validacoes.EhNullOuVazio(clienteIncluido) || clienteIncluido.Id == 0)
             {
                 throw new ArgumentException("Erro ao incluir cliente.");
             }
 
-            var clienteDTOIncluido = _mapper.Map<Domain.Entities.Cliente, ClienteDTO>(clienteIncluido);
+            var clienteDTOIncluido = _mapper.Map<Cliente, ClienteDTO>(clienteIncluido);
             return clienteDTOIncluido;
         }
 
@@ -87,7 +92,7 @@ namespace PedidoCompra.Application.Services
             {
                 return new List<ClienteDTO>();
             }
-            var clientesDTO = _mapper.Map<IEnumerable<Domain.Entities.Cliente>, IEnumerable<ClienteDTO>>(clientes);
+            var clientesDTO = _mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteDTO>>(clientes);
             return clientesDTO;
         }
 
@@ -105,7 +110,7 @@ namespace PedidoCompra.Application.Services
                 throw new ArgumentException("Cliente não encontrado.");
             }
 
-            var clienteDTO = _mapper.Map<Domain.Entities.Cliente, ClienteDTO>(cliente);
+            var clienteDTO = _mapper.Map<Cliente, ClienteDTO>(cliente);
             return clienteDTO;
         }
 

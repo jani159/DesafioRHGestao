@@ -17,14 +17,19 @@ namespace PedidoCompra.Infrastructure.Data
         // DbSets
          public DbSet<Pedido> Pedidos { get; set; }
          public DbSet<ItemPedido> ItensPedido { get; set; }
-         public DbSet<Pedido> Cliente { get; set; }
-         public DbSet<Pedido> Produto { get; set; }
+         public DbSet<Cliente> Clientes { get; set; }
+         public DbSet<Pedido> Produtos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(PedidoCompraContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Cliente>()
+                .Property(c => c.Id)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn();
 
         }
     }

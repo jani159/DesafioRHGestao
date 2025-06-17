@@ -12,20 +12,16 @@ namespace PedidoCompra.Infrastructure.Repositories
 {
     public class ClienteRepository : RepositoryBase<Cliente>, IClienteRepository
     {
-        private readonly RepositoryBase<Cliente> repositoryBase;
-        public ClienteRepository(PedidoCompraContext context) : base(context)
-        {
-
-        }
+        public ClienteRepository(PedidoCompraContext context) : base(context){ }
 
         public async Task<Cliente?> ObterClientePorIdAsync(int id)
         {
-            return await repositoryBase.GetByIdAsync(id);
+            return await GetByIdAsync(id);
         }
         public async Task<Cliente> AtualizarClienteAsync(Cliente cliente)
         {
-            await repositoryBase.UpdateAsync(cliente);
-            var clienteAtualizado =  await repositoryBase.GetByIdAsync(cliente.Id);
+            await UpdateAsync(cliente);
+            var clienteAtualizado =  await GetByIdAsync(cliente.Id);
 
             if (clienteAtualizado == null)
             {
@@ -36,8 +32,8 @@ namespace PedidoCompra.Infrastructure.Repositories
         }
         public async Task<Cliente> IncluirClienteAsync(Cliente cliente)
         {
-            await repositoryBase.AddAsync(cliente);
-            var clienteIncluido = await repositoryBase.GetByIdAsync(cliente.Id);
+            await AddAsync(cliente);
+            var clienteIncluido = await GetByIdAsync(cliente.Id);
 
             if (clienteIncluido == null)
             {
@@ -49,16 +45,16 @@ namespace PedidoCompra.Infrastructure.Repositories
         }
         public async Task<IEnumerable<Cliente>> ListarTodosClientesAsync()
         {
-            return await repositoryBase.GetAllAsync();
+            return await GetAllAsync();
         }
         public async Task<bool> RemoverClienteAsync(int id)
         {
-            var cliente = await repositoryBase.GetByIdAsync(id);
+            var cliente = await GetByIdAsync(id);
             if (cliente == null)
             {
                 return false;
             }
-            await repositoryBase.DeleteAsync(id);
+            await DeleteAsync(id);
             return true;
 
         }

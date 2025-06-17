@@ -11,8 +11,8 @@ namespace PedidoCompra.Application.Interfaces
     {
         Task<IEnumerable<ClienteDTO>> ListarTodosClientesAsync();
         Task<ClienteDTO> ObterClientePorIdAsync(int id);
-        Task<ClienteDTO> IncluirClienteAsync(ClienteDTO cliente);
-        Task<ClienteDTO> AtualizarClienteAsync(ClienteDTO cliente);
+        Task<ClienteDTO> IncluirClienteAsync(ClienteRequestDTO cliente);
+        Task<ClienteDTO> AtualizarClienteAsync(int id, ClienteRequestDTO cliente);
         Task<bool> RemoverClienteAsync(int id);
     }
 }

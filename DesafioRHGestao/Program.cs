@@ -51,6 +51,8 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+app.MapControllers();
+
 // Configura o middleware do Swagger
 if (app.Environment.IsDevelopment())
 {

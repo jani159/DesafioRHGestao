@@ -22,7 +22,7 @@ namespace PedidoCompra.API.Controllers
             return Ok(clientes);
         }
 
-        [HttpGet("cliente/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> ObterClientePorId(int id)
         {
             var cliente = await _clienteService.ObterClientePorIdAsync(id);
@@ -36,7 +36,7 @@ namespace PedidoCompra.API.Controllers
         }
 
         [HttpPost("incluir")]
-        public async Task<IActionResult> IncluirCliente([FromBody] ClienteDTO clienteDTO)
+        public async Task<IActionResult> IncluirCliente([FromBody] ClienteRequestDTO clienteDTO)
         {
             if (clienteDTO == null)
             {
@@ -47,13 +47,14 @@ namespace PedidoCompra.API.Controllers
         }
 
         [HttpPut("atualizar/{id}")]
-        public async Task<IActionResult> AtualizarCliente(int id, [FromBody] ClienteDTO clienteDTO)
+        public async Task<IActionResult> AtualizarCliente([FromBody] ClienteRequestDTO clienteDTO, [FromRoute] int id)
         {
-            if (clienteDTO == null || clienteDTO.Id != id)
+            if (clienteDTO == null)
             {
                 return BadRequest("Dados inválidos para efetuar a atualização do cliente. Porfavor, verfique os dados preenchidos e tente novamente.");
             }
-            var clienteAtualizado = await _clienteService.AtualizarClienteAsync(clienteDTO);
+
+            var clienteAtualizado = await _clienteService.AtualizarClienteAsync(id, clienteDTO);
             if (clienteAtualizado == null)
             {
                 return NotFound();
