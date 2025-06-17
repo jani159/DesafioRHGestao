@@ -14,6 +14,9 @@ namespace PedidoCompra.Domain.Entities
         public string NomeProduto { get; set; }
         public int Quantidade { get; set; }
         public decimal ValorUnitario { get; set; }
+        public decimal ValorTotal => Quantidade * ValorUnitario;
+        public Pedido Pedido { get; set; }
+        public Produto Produto { get; set; }
 
         // Construtor
         public ItemPedido() { }
