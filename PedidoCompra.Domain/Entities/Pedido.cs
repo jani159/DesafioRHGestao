@@ -10,24 +10,30 @@ namespace PedidoCompra.Domain.Entities
     {
         public int Id { get; set; }
         public int ClienteId { get; set; } // Chave estrangeira para Cliente
-        public DateTime DataPedido { get; set; }
-        public decimal ValorTotal { get; set; }
-        public string Status { get; set; } //("Pendente", "Concluído", "Cancelado")
+        public string Descricao { get; set; } = string.Empty;
+        private DateTime _dataPedido = DateTime.UtcNow;
+        public DateTime DataPedido 
+        { 
+            get => _dataPedido;
+            set => _dataPedido = DateTime.SpecifyKind(value, DateTimeKind.Utc);
+        }
+
         // Relacionamento com Cliente
         public Cliente Cliente { get; set; }
         // Relacionamento com Itens do Pedido
         public ICollection<ItemPedido> Itens { get; set; } = new List<ItemPedido>();
+        // Propriedade para calcular o valor total do pedido
+        public decimal ValorTotal => Itens.Sum(item => item.ValorTotal);
 
         // Construtor
         public Pedido() { }
 
-        public Pedido(int id, DateTime dataPedido, decimal valorTotal, string status, int clienteId)
+        public Pedido(int id, int clienteID, string descricao)
         {
             Id = id;
-            DataPedido = dataPedido;
-            ValorTotal = valorTotal;
-            Status = status;
-            ClienteId = clienteId;
+            ClienteId = clienteID;
+            Descricao = descricao;
+            _dataPedido = DateTime.UtcNow;
         }
     }
 }
