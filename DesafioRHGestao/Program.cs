@@ -10,7 +10,21 @@ using PedidoCompra.Application.Services;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.OpenApi.Models;
-var builder = WebApplication.CreateSlimBuilder(args);
+using Serilog;
+using Serilog.Events;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configurar Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("logs/gestor_pedidos.log", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Registrar constraint de regex
 builder.Services.Configure<RouteOptions>(options =>
@@ -19,12 +33,12 @@ builder.Services.Configure<RouteOptions>(options =>
 builder.Services.AddDbContext<PedidoCompraContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Registra os repositórios
+// Registra os repositÃ³rios
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
-// Registra os serviços
+// Registra os serviÃ§os
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IPedidoService, PedidoService>();
@@ -35,7 +49,7 @@ builder.Services.AddControllers();
 //Mapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
-// Configurações do Swagger
+// ConfiguraÃ§Ãµes do Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -59,7 +73,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gestor Pedidos API v1"));
 }
 
-// Aplicar as migrations automaticamente ao iniciar a aplicação
+// Aplicar as migrations automaticamente ao iniciar a aplicaÃ§Ã£o
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<PedidoCompraContext>();
