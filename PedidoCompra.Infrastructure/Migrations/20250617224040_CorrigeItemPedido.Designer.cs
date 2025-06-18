@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PedidoCompra.Infrastructure.Data;
@@ -11,9 +12,11 @@ using PedidoCompra.Infrastructure.Data;
 namespace PedidoCompra.Infrastructure.Migrations
 {
     [DbContext(typeof(PedidoCompraContext))]
-    partial class PedidoCompraContextModelSnapshot : ModelSnapshot
+    [Migration("20250617224040_CorrigeItemPedido")]
+    partial class CorrigeItemPedido
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,20 +70,19 @@ namespace PedidoCompra.Infrastructure.Migrations
                     b.Property<int>("ProdutoId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ProdutoId1")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Quantidade")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("ValorTotal")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,2)")
-                        .HasDefaultValue(0m);
-
                     b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
 
                     b.HasIndex("ProdutoId");
 
-                    b.HasIndex("PedidoId", "ProdutoId")
-                        .IsUnique();
+                    b.HasIndex("ProdutoId1");
 
                     b.ToTable("ItensPedido");
                 });
@@ -101,14 +103,13 @@ namespace PedidoCompra.Infrastructure.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
 
-                    b.ToTable("Pedidos");
+                    b.ToTable("Pedido");
                 });
 
             modelBuilder.Entity("PedidoCompra.Domain.Entities.Produto", b =>
@@ -132,7 +133,7 @@ namespace PedidoCompra.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Produtos");
+                    b.ToTable("Produto");
                 });
 
             modelBuilder.Entity("PedidoCompra.Domain.Entities.ItemPedido", b =>
@@ -144,10 +145,14 @@ namespace PedidoCompra.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("PedidoCompra.Domain.Entities.Produto", "Produto")
-                        .WithMany("ItensPedido")
+                        .WithMany()
                         .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("PedidoCompra.Domain.Entities.Produto", null)
+                        .WithMany("ItensPedido")
+                        .HasForeignKey("ProdutoId1");
 
                     b.Navigation("Pedido");
 
@@ -159,7 +164,7 @@ namespace PedidoCompra.Infrastructure.Migrations
                     b.HasOne("PedidoCompra.Domain.Entities.Cliente", "Cliente")
                         .WithMany("Pedidos")
                         .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");

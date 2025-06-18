@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PedidoCompra.Infrastructure.Data;
@@ -11,9 +12,11 @@ using PedidoCompra.Infrastructure.Data;
 namespace PedidoCompra.Infrastructure.Migrations
 {
     [DbContext(typeof(PedidoCompraContext))]
-    partial class PedidoCompraContextModelSnapshot : ModelSnapshot
+    [Migration("20250617231939_ConfiguracaoRelacionamentos")]
+    partial class ConfiguracaoRelacionamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,10 +80,9 @@ namespace PedidoCompra.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProdutoId");
+                    b.HasIndex("PedidoId");
 
-                    b.HasIndex("PedidoId", "ProdutoId")
-                        .IsUnique();
+                    b.HasIndex("ProdutoId");
 
                     b.ToTable("ItensPedido");
                 });
