@@ -15,13 +15,21 @@ namespace PedidoCompra.Infrastructure.Configurations
         {
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.Nome)
+            builder.Property(p => p.Descricao)
                 .IsRequired()
                 .HasMaxLength(100);
 
             builder.Property(p => p.Valor)
                 .IsRequired()
                 .HasColumnType("decimal(18,2)");
+
+            builder.Property(p => p.QuantidadeEstoque)
+                .IsRequired();
+
+            builder.HasMany(p => p.ItensPedido)
+                .WithOne(i => i.Produto)
+                .HasForeignKey(i => i.ProdutoId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

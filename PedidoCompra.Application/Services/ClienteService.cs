@@ -31,15 +31,17 @@ namespace PedidoCompra.Application.Services
                 throw new ArgumentException("Cliente não encontrado.");
             }
 
-            var clienteNew = _mapper.Map<ClienteRequestDTO, Cliente>(clienteDTO);
+            Validacoes.ValidarEhNullOuVazio(clienteDTO.Nome, nameof(clienteDTO.Nome));
+            Validacoes.ValidarEhNullOuVazio(clienteDTO.Email, nameof(clienteDTO.Email));
+            Validacoes.ValidarEhNullOuVazio(clienteDTO.Telefone, nameof(clienteDTO.Telefone));
+            Validacoes.ValidarEhNullOuVazio(clienteDTO.Endereco, nameof(clienteDTO.Endereco));
 
-            clienteNew.Id = id;
-            Validacoes.ValidarEhNullOuVazio(clienteNew.Nome, nameof(clienteNew.Nome));
-            Validacoes.ValidarEhNullOuVazio(clienteNew.Email, nameof(clienteNew.Email));
-            Validacoes.ValidarEhNullOuVazio(clienteNew.Telefone, nameof(clienteNew.Telefone));
-            Validacoes.ValidarEhNullOuVazio(clienteNew.Endereco, nameof(clienteNew.Endereco));
+            clienteOld.Nome = clienteDTO.Nome;
+            clienteOld.Email = clienteDTO.Email;
+            clienteOld.Telefone = clienteDTO.Telefone;
+            clienteOld.Endereco = clienteDTO.Endereco;
 
-            var clienteAtualizado = await _clienteRepository.AtualizarClienteAsync(clienteNew);
+            var clienteAtualizado = await _clienteRepository.AtualizarClienteAsync(clienteOld);
 
             if (Validacoes.EhNullOuVazio(clienteAtualizado))
             {

@@ -9,6 +9,10 @@ namespace PedidoCompra.Domain.Interfaces
 {
     public interface IPedidoRepository : IRepositoryBase<Pedido>
     {
-        Task<Pedido?> ObterPedidoAsync(int id);
+        Task<Pedido?> ObterPedidoPorIdAsync(int id);
+        Task<Pedido> AtualizarPedidoAsync(Pedido pedido);
+        Task<Pedido> IncluirPedidoAsync(Pedido pedido);
+        Task<IEnumerable<Pedido>> ListarTodosPedidosAsync();
+        Task<bool> RemoverPedidoAsync(int id);
     }
 }

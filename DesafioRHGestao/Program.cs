@@ -10,7 +10,6 @@ using PedidoCompra.Application.Services;
 using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateSlimBuilder(args);
 
 // Registrar constraint de regex
@@ -27,8 +26,8 @@ builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
 // Registra os serviços
 builder.Services.AddScoped<IClienteService, ClienteService>();
-//builder.Services.AddScoped<IProdutoService, ProdutoService>();
-//builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 
 //Controllers
 builder.Services.AddControllers();

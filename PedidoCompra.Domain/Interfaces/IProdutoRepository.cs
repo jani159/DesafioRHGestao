@@ -9,5 +9,10 @@ namespace PedidoCompra.Domain.Interfaces
 {
     public interface IProdutoRepository : IRepositoryBase<Produto>
     {
+        Task<Produto?> ObterProdutoPorIdAsync(int id);
+        Task<Produto> AtualizarProdutoAsync(Produto produto);
+        Task<Produto> IncluirProdutoAsync(Produto produto);
+        Task<IEnumerable<Produto>> ListarTodosProdutosAsync();
+        Task<bool> RemoverProdutoAsync(int id);
     }
 }

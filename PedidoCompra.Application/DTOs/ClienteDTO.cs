@@ -16,9 +16,6 @@ namespace PedidoCompra.Application.DTOs
         public string Endereco { get; set; }
 
         [JsonIgnore]
-        public ICollection<ItemPedidoDTO> ItensPedido { get; set; } = new List<ItemPedidoDTO>();
-
-        [JsonIgnore]
         public ICollection<PedidoDTO> Pedidos { get; set; } = new List<PedidoDTO>();
 
         public ClienteDTO() { }
