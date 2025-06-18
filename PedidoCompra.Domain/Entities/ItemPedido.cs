@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace PedidoCompra.Domain.Entities
 {
@@ -11,28 +12,35 @@ namespace PedidoCompra.Domain.Entities
         public int Id { get; set; }
         public int PedidoId { get; set; }
         public int ProdutoId { get; set; }
-        public string NomeProduto { get; set; }
         public int Quantidade { get; set; }
-        public decimal ValorUnitario { get; set; }
-        public decimal ValorTotal => Quantidade * ValorUnitario;
-        public Pedido Pedido { get; set; }
-        public Produto Produto { get; set; }
+        private decimal _valorTotal;
+        public decimal ValorTotal 
+        { 
+            get => Produto != null ? Quantidade * Produto.Valor : _valorTotal;
+            set => _valorTotal = value;
+        }
+
+        [JsonIgnore]
+        public virtual Pedido? Pedido { get; set; }
+
+        [JsonIgnore]
+        public virtual Produto? Produto { get; set; }
 
         // Construtor
         public ItemPedido() { }
-        public ItemPedido(int id, int pedidoId, int produtoId, int quantidade, decimal valorUnitario)
+        
+        public ItemPedido(int pedidoId, int produtoId, int quantidade)
         {
-            Id = id;
             PedidoId = pedidoId;
             ProdutoId = produtoId;
             Quantidade = quantidade;
-            ValorUnitario = valorUnitario;
         }
+
         public ItemPedido(Produto produto, int quantidade)
         {
             ProdutoId = produto.Id;
             Quantidade = quantidade;
-            ValorUnitario = produto.Valor; // Assume que o valor unitário é o preço do produto
+            _valorTotal = quantidade * produto.Valor;
         }
     }
 }
