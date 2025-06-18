@@ -25,14 +25,30 @@ namespace PedidoCompra.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> ObterPedidoPorId(int id)
         {
-            var pedido = await _pedidoService.ObterPedidoPorIdAsync(id);
-
-            if (pedido == null)
+            try
             {
-                return NotFound();
-            }
+                if (id <= 0)
+                {
+                    return BadRequest("ID inválido. Por favor, informe um ID válido.");
+                }
 
-            return Ok(pedido);
+                var pedido = await _pedidoService.ObterPedidoPorIdAsync(id);
+
+                if (pedido == null)
+                {
+                    return NotFound("Pedido não encontrado.");
+                }
+
+                return Ok(pedido);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);  // Retorna erro 400 com a mensagem de erro detalhada
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
         }
 
         [HttpPost("incluir")]
@@ -42,36 +58,83 @@ namespace PedidoCompra.API.Controllers
             {
                 return BadRequest("Por favor informe os dados do pedido.");
             }
-            var pedidoNew = await _pedidoService.IncluirPedidoAsync(pedidoDTO);
-            return CreatedAtAction(nameof(ObterPedidoPorId), new { id = pedidoNew.Id }, pedidoNew);
+
+            try
+            {
+                var pedidoNew = await _pedidoService.IncluirPedidoAsync(pedidoDTO);
+                return Ok(pedidoNew);
+
+            } catch(ArgumentException ex)
+            {
+                return BadRequest($"Erro ao incluir pedido: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+            
         }
 
         [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> AtualizarPedido([FromBody] PedidoRequestDTO pedidoDTO, [FromRoute] int id)
         {
-            if (pedidoDTO == null)
+            try
             {
-                return BadRequest("Dados inválidos para efetuar a atualização do pedido. Porfavor, verfique os dados preenchidos e tente novamente.");
-            }
+                if (id <= 0)
+                {
+                    return BadRequest("ID inválido. Por favor, informe um ID válido.");
+                }
 
-            var pedidoAtualizado = await _pedidoService.AtualizarPedidoAsync(id, pedidoDTO);
-            if (pedidoAtualizado == null)
+                if (pedidoDTO == null)
+                {
+                    return BadRequest("Dados inválidos para efetuar a atualização do pedido. Porfavor, verfique os dados preenchidos e tente novamente.");
+                }
+
+                var pedidoAtualizado = await _pedidoService.AtualizarPedidoAsync(id, pedidoDTO);
+                if (pedidoAtualizado == null)
+                {
+                    return NotFound("O pedido não foi encontrado.");
+                }
+
+                return Ok(pedidoAtualizado);
+            }
+            catch (ArgumentException ex)
             {
-                return NotFound();
+                return BadRequest($"Erro ao atualizar pedido: {ex.Message}");
             }
-
-            return Ok(pedidoAtualizado);
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+            
         }
 
         [HttpDelete("remover/{id}")]
         public async Task<IActionResult> RemoverPedido(int id)
         {
-            var pedidoRemovido = await _pedidoService.RemoverPedidoAsync(id);
-            if (!pedidoRemovido)
+            try
             {
-                return NotFound("Erro ao remover pedido.");
+                if (id <= 0)
+                {
+                    return BadRequest("ID inválido. Por favor, informe um ID válido.");
+                }
+
+                var pedidoRemovido = await _pedidoService.RemoverPedidoAsync(id);
+                if (!pedidoRemovido)
+                {
+                    return NotFound("Pedido não encontrado.");
+                }
+                return Ok("Pedido removido com sucesso!");
             }
-            return Ok("Pedido removido com sucesso!");
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Erro ao remover pedido: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+            
         }
     }
 }

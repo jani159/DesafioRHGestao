@@ -18,60 +18,144 @@ namespace PedidoCompra.API.Controllers
         [HttpGet("listarTodos")]
         public async Task<IActionResult> ListarTodosProdutos()
         {
-            var produtos = await _produtoService.ListarTodosProdutosAsync();
-            return Ok(produtos);
+            try
+            {
+                var produtos = await _produtoService.ListarTodosProdutosAsync();
+                
+                if (produtos == null || !produtos.Any())
+                {
+                    return NotFound("Nenhum produto encontrado.");
+                }
+
+                return Ok(produtos);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);  // Retorna erro 400 com a mensagem de erro detalhada
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> ObterProdutoPorId(int id)
         {
-            var produto = await _produtoService.ObterProdutoPorIdAsync(id);
-
-            if (produto == null)
+            try
             {
-                return NotFound();
-            }
+                if (id <= 0)
+                {
+                    return BadRequest("ID inválido. Por favor, informe um ID válido.");
+                }
 
-            return Ok(produto);
+                var produto = await _produtoService.ObterProdutoPorIdAsync(id);
+
+                if (produto == null)
+                {
+                    return NotFound("Produdo não encontrado.");
+                }
+
+                return Ok(produto);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);  // Retorna erro 400 com a mensagem de erro detalhada
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+            
         }
 
         [HttpPost("incluir")]
         public async Task<IActionResult> IncluirProduto([FromBody] ProdutoRequestDTO produtoDTO)
         {
-            if (produtoDTO == null)
+            try
             {
-                return BadRequest("Por favor informe os dados do produto.");
+                if (produtoDTO == null)
+                {
+                    return BadRequest("Por favor informe os dados do produto.");
+                }
+
+                var produtoNew = await _produtoService.IncluirProdutoAsync(produtoDTO);
+                return Ok(produtoNew);
             }
-            var produtoNew = await _produtoService.IncluirProdutoAsync(produtoDTO);
-            return CreatedAtAction(nameof(ObterProdutoPorId), new { id = produtoNew.Id }, produtoNew);
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Erro ao incluir produto: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+            
         }
 
         [HttpPut("atualizar/{id}")]
         public async Task<IActionResult> AtualizarProduto([FromBody] ProdutoRequestDTO produtoDTO, [FromRoute] int id)
         {
-            if (produtoDTO == null)
+            try
             {
-                return BadRequest("Dados inválidos para efetuar a atualização do produto. Porfavor, verfique os dados preenchidos e tente novamente.");
+                if (produtoDTO == null)
+                {
+                    return BadRequest("Dados inválidos para efetuar a atualização do produto. Por favor, verifique os dados preenchidos e tente novamente.");
+                }
+                if (id <= 0)
+                {
+                    return BadRequest("ID inválido. Por favor, informe um ID válido.");
+                }
+
+                var produtoAtualizado = await _produtoService.AtualizarProdutoAsync(id, produtoDTO);
+                if (produtoAtualizado == null)
+                {
+                    return NotFound("Produdo não encontrado.");
+                }
+
+                return Ok(produtoAtualizado);
+
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Erro ao atualizar produto: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
             }
 
-            var produtoAtualizado = await _produtoService.AtualizarProdutoAsync(id, produtoDTO);
-            if (produtoAtualizado == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(produtoAtualizado);
+            
         }
 
         [HttpDelete("remover/{id}")]
         public async Task<IActionResult> RemoverProduto(int id)
         {
-            var produtoRemovido = await _produtoService.RemoverProdutoAsync(id);
-            if (!produtoRemovido)
+            try
             {
-                return NotFound("Erro ao remover produto.");
+                if (id <= 0)
+                {
+                    return BadRequest("ID inválido. Por favor, informe um ID válido.");
+                }
+
+                var produtoRemovido = await _produtoService.RemoverProdutoAsync(id);
+                if (!produtoRemovido)
+                {
+                    return NotFound("Erro ao remover produto.");
+                }
+
+                return Ok("Produto removido com sucesso!");
             }
-            return Ok("Produto removido com sucesso!");
+            catch (ArgumentException ex)
+            {
+                return BadRequest($"Erro ao remover produto: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Erro interno: {ex.Message}");
+            }
+
         }
     }
 }
